@@ -1,0 +1,69 @@
+{
+	"global": {
+		"success": "Correcto",
+		"information": "Información",
+		"confirmation": "Confirmación",
+		"error": "Error",
+		"error-occurred": "Ha ocurrido un error. Por favor, inténtelo de nuevo más tarde.",
+		"yes": "Sí",
+		"no": "No"
+	},
+	"app": {
+		"loading-text": ""
+	},
+	"login": {
+		"header_1": "Welcome!",
+		"header": "Secured Machine",
+		"txt-username": "Usuario",
+		"txt-password": "Contraseña",
+		"btn-login": "Login",
+		"incorrect-credentials": "Credenciales Incorrectas"
+	},
+	"navigation-bar": {
+		"brand": "Secured Accounts!!!",
+		"items": "Cuentas",
+		"logout": "Logout"
+	},
+	"accounts": {
+		"header": "Mis Passwords",
+		"btn-create-account": "Nueva Cuenta",
+		"btn-reload": "Recargar",
+		"no-accounts": "¡Nada por aquí, nada por allá!",
+		"table-name": "Nombre",
+		"table-description": "Descripción",
+		"table-user": "Usuario",
+		"table-password": "Password",
+		"delete-account-confirmation": "¿Seguro seguro?"
+	},
+	"account": {
+		"header_new": "Nueva Cuenta",
+		"header_modify": "Cuenta",
+		"btn-create-account": "Crear",
+		"btn-modify-account": "Modificar",
+		"btn-volver-account": "Volver",
+		"btn-reload": "Recargar",
+		"no-accounts": "¡Nada por aquí, nada por allá!",
+		"txt-name": "Nombre",
+		"txt-description": "Descripción",
+		"txt-uri": "URI",
+		"txt-user": "Usuario",
+		"txt-password": "Password",
+		"delete-account-confirmation": "¿Seguro seguro?",
+		"incorrect-creation": "Error al crear la nueva cuenta"
+	},
+	"profile":{
+		"header_modify": "Modificar Perfil Usuario",
+		"txt-username": "Usuario",
+		"txt-old-password": "Password Antigua",
+		"txt-password-1": "Nueva Password",
+		"txt-password-2": "Repetir Password",
+		"btn-modify-user": "Modificar",
+		"btn-return": "Volver"
+	},
+	"errors": {
+		"account-does-not-exist": "La cuenta no existe",
+		"account-already-exist": "Ya existe una cuenta con ese nombre",
+		"account-has-funds": "No se puede eliminar una cuenta con fondos",
+		"insufficient-funds": "No tiene pelas!!!"
+	}
+}

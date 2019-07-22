@@ -15,8 +15,8 @@ import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "secured_account")
-public class SecuredAccountEntity {
+@Table(name = "secured_accounts")
+public class SecuredAccountsEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,6 +33,10 @@ public class SecuredAccountEntity {
 	@Size(max = 250)
 	private String description;
 
+	@Column(name = "username")
+	@Size(max = 256)
+	private String username;
+
 	@Column(name = "password")
 	@Size(max = 256)
 	private String password;
@@ -41,10 +45,22 @@ public class SecuredAccountEntity {
 	@Size(max = 45)
 	private String token;
 
+	@Column(name = "uri")
+	@Size(max = 500)
+	private String uri;
+
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "id_user")
+	@JoinColumn(name = "user")
 	@NotNull
-	private UserEntity idUser;
+	private UserEntity user;
+
+	public UserEntity getUser() {
+		return user;
+	}
+
+	public void setUser(UserEntity user) {
+		this.user = user;
+	}
 
 	public Long getSecuredAccountId() {
 		return securedAccountId;
@@ -70,14 +86,6 @@ public class SecuredAccountEntity {
 		this.description = description;
 	}
 
-	public UserEntity getIdUser() {
-		return idUser;
-	}
-
-	public void setIdUser(UserEntity idUser) {
-		this.idUser = idUser;
-	}
-
 	public String getPassword() {
 		return password;
 	}
@@ -94,11 +102,19 @@ public class SecuredAccountEntity {
 		this.token = token;
 	}
 
-	/*
-	 * public List<UserEntity> getAllowedUsers() { return allowedUsers; }
-	 * 
-	 * public void setAllowedUsers( List<UserEntity> allowedUsers) {
-	 * this.allowedUsers = allowedUsers; }
-	 */
+	public String getUsername() {
+		return username;
+	}
 
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getUri() {
+		return uri;
+	}
+
+	public void setUri(String uri) {
+		this.uri = uri;
+	}
 }

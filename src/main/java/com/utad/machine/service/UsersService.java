@@ -31,6 +31,14 @@ public class UsersService {
 
 	}
 
+	public UserDto getByIdUser(Long iduser) {
+
+		UserEntity userEntity = usersRepository.findByIdUser(iduser);
+		UserDto userDto = usersMapper.toDto(userEntity);
+		return userDto;
+
+	}
+
 	public List<UserDto> getAll() {
 
 		List<UserEntity> userEntities = usersRepository.findAll();
@@ -52,6 +60,25 @@ public class UsersService {
 
 		return userDto;
 
+	}
+
+	public void modify(Long idUser, String oldPassword, String newPassword1, String newPassword2) {
+
+		UserEntity userEntity = new UserEntity();
+
+		UserDto userDto = getByIdUser(idUser);
+
+		if (!userDto.getPassword().equals(oldPassword)) {
+			throw new BusinessLogicException("incorrect-password");
+		}
+		if (!newPassword1.equals(newPassword2)) {
+			throw new BusinessLogicException("incorrect-password");
+		}
+
+		userEntity.setUsername(userDto.getUsername());
+		userEntity.setPassword(newPassword1);
+		userEntity.setRole(userDto.getRole());
+		userEntity = usersRepository.save(userEntity);
 	}
 
 	public void deleteByUsername(String username) {

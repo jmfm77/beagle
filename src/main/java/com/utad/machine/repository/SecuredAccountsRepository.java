@@ -4,12 +4,16 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.utad.machine.entity.SecuredAccountEntity;
+import com.utad.machine.entity.SecuredAccountsEntity;
 
-public interface SecuredAccountsRepository extends JpaRepository<SecuredAccountEntity, Long> {
+public interface SecuredAccountsRepository extends JpaRepository<SecuredAccountsEntity, Long> {
 
-	SecuredAccountEntity findByIban(String iban);
+	List<SecuredAccountsEntity> findByUserUserIdOrderByName(Long userId);
 
-	List<SecuredAccountEntity> findByOwnerUserId(Long userId);
+	List<SecuredAccountsEntity> findByOrderByName();
+
+	List<SecuredAccountsEntity> findByUserUserIdAndName(Long userId, String name);
+
+	SecuredAccountsEntity findBySecuredAccountId(Long securedAccountId);
 
 }

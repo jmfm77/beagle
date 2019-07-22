@@ -2,6 +2,7 @@ package com.utad.machine.controller.api;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.utad.machine.dto.CreateUserDto;
 import com.utad.machine.dto.DeleteUserDto;
+import com.utad.machine.dto.ModifyUserDto;
 import com.utad.machine.dto.SuccessDto;
 import com.utad.machine.dto.UserDto;
 import com.utad.machine.service.UsersService;
@@ -24,6 +26,9 @@ import com.utad.machine.service.UsersService;
 @RequestMapping("/api/user")
 @Validated
 public class UsersController {
+
+	@Autowired
+	private HttpSession httpSession;
 
 	@Autowired
 	private UsersService usersService;
@@ -46,6 +51,21 @@ public class UsersController {
 
 		return usersService.create(createUserDto.getUsername(), passwordEncoder.encode(createUserDto.getPassword()),
 				createUserDto.getRole());
+
+	}
+
+	@PostMapping("/modify-user")
+
+	@PreAuthorize("hasRole('ROLE_USER')")
+	public SuccessDto modify(@RequestBody(required = true) @Valid ModifyUserDto modifyUserDto) {
+
+		Long userId = (Long) httpSession.getAttribute("user-id");
+
+		usersService.modify(userId, passwordEncoder.encode(modifyUserDto.getOldPassword()),
+				passwordEncoder.encode(modifyUserDto.getNewPassword1()),
+				passwordEncoder.encode(modifyUserDto.getNewPassword2()));
+
+		return new SuccessDto(true);
 
 	}
 

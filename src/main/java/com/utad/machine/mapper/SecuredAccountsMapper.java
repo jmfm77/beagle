@@ -5,43 +5,67 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.utad.machine.dto.ModifySecuredAccountDto;
 import com.utad.machine.dto.SecuredAccountDto;
-import com.utad.machine.entity.SecuredAccountEntity;
+import com.utad.machine.entity.SecuredAccountsEntity;
 
 @Service
 public class SecuredAccountsMapper {
 
-	public SecuredAccountDto toDto(SecuredAccountEntity SecuredAccountEntity) {
+	public SecuredAccountDto toDto(SecuredAccountsEntity securedAccountEntity) {
 
-		if (SecuredAccountEntity == null) {
+		if (securedAccountEntity == null) {
 			return null;
 		}
 
-		SecuredAccountDto SecuredAccountDto = new SecuredAccountDto();
+		SecuredAccountDto securedAccountDto = new SecuredAccountDto();
 
-		SecuredAccountDto.setName(SecuredAccountEntity.getName());
-		SecuredAccountDto.setDescription(SecuredAccountEntity.getDescription());
-		SecuredAccountDto.setPassword(SecuredAccountEntity.getPassword());
-		SecuredAccountDto.setToken(SecuredAccountEntity.getToken());
+		securedAccountDto.setSecuredAccountId(securedAccountEntity.getSecuredAccountId());
+		securedAccountDto.setName(securedAccountEntity.getName());
+		securedAccountDto.setDescription(securedAccountEntity.getDescription());
+		securedAccountDto.setUsername(securedAccountEntity.getUsername());
+		securedAccountDto.setPassword(securedAccountEntity.getPassword());
+		securedAccountDto.setUri(securedAccountEntity.getUri());
+		securedAccountDto.setToken(securedAccountEntity.getToken());
 
-		return SecuredAccountDto;
+		return securedAccountDto;
 
 	}
 
-	public List<SecuredAccountDto> toDto(List<SecuredAccountEntity> SecuredAccountEntities) {
+	public ModifySecuredAccountDto toModifyDto(SecuredAccountsEntity securedAccountEntity) {
 
-		if (SecuredAccountEntities == null) {
+		if (securedAccountEntity == null) {
 			return null;
 		}
 
-		List<SecuredAccountDto> SecuredAccountDtos = new ArrayList<>(SecuredAccountEntities.size());
+		ModifySecuredAccountDto securedAccountDto = new ModifySecuredAccountDto();
 
-		for (SecuredAccountEntity SecuredAccountEntity : SecuredAccountEntities) {
-			SecuredAccountDto SecuredAccountDto = toDto(SecuredAccountEntity);
-			SecuredAccountDtos.add(SecuredAccountDto);
+		securedAccountDto.setSecuredAccountId(securedAccountEntity.getSecuredAccountId());
+		securedAccountDto.setName(securedAccountEntity.getName());
+		securedAccountDto.setDescription(securedAccountEntity.getDescription());
+		securedAccountDto.setUsername(securedAccountEntity.getUsername());
+		securedAccountDto.setPassword(securedAccountEntity.getPassword());
+		securedAccountDto.setUri(securedAccountEntity.getUri());
+		securedAccountDto.setToken(securedAccountEntity.getToken());
+
+		return securedAccountDto;
+
+	}
+
+	public List<SecuredAccountDto> toDto(List<SecuredAccountsEntity> securedAccountEntities) {
+
+		if (securedAccountEntities == null) {
+			return null;
 		}
 
-		return SecuredAccountDtos;
+		List<SecuredAccountDto> securedAccountDtos = new ArrayList<>(securedAccountEntities.size());
+
+		for (SecuredAccountsEntity securedAccountEntity : securedAccountEntities) {
+			SecuredAccountDto securedAccountDto = toDto(securedAccountEntity);
+			securedAccountDtos.add(securedAccountDto);
+		}
+
+		return securedAccountDtos;
 
 	}
 
