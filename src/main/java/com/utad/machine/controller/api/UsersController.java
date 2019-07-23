@@ -35,7 +35,7 @@ public class UsersController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	@GetMapping("/get-all")
+	@GetMapping("/get-all-users")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public List<UserDto> getAll() {
 
@@ -54,7 +54,7 @@ public class UsersController {
 
 	@PostMapping("/modify")
 
-	@PreAuthorize("hasRole('ROLE_USER')")
+	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
 	public SuccessDto modify(@RequestBody(required = true) @Valid ModifyUserDto modifyUserDto) {
 
 		Long userId = (Long) httpSession.getAttribute("user-id");
@@ -67,7 +67,7 @@ public class UsersController {
 	}
 
 	@GetMapping("/delete")
-	@PreAuthorize("hasRole('ROLE_USER')")
+	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
 	public SuccessDto delete() {
 		Long userId = (Long) httpSession.getAttribute("user-id");
 		usersService.deleteByUserId(userId);

@@ -7,6 +7,7 @@ import { t } from 'services/translation.jsx';
 import { get, post } from 'services/rest.jsx';
 import { modalConfirmation } from 'services/modal.jsx';
 import { changeLocation } from 'services/location.jsx';
+import {sessionRoles} from 'services/session.jsx';
 
 class Accounts extends Component {
 
@@ -25,6 +26,7 @@ class Accounts extends Component {
 
         // State.
         this.state = {
+            roles: [],
             accounts: [],
             accountModalActive: false,
             accountName: '',
@@ -36,8 +38,12 @@ class Accounts extends Component {
 
     componentDidMount() {
 
+        this.state.roles = sessionRoles();
+        if (this.state.roles.length > 0){
+                this.state.roles.map((role, i) =>
+                    role == 'ROLE_ADMIN'?changeLocation('/users'):null);
+        }
         this.loadAccounts();
-
     }
 
     loadAccounts() {

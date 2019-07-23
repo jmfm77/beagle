@@ -38,6 +38,15 @@
 		"table-password": "Password",
 		"delete-account-confirmation": "¿Seguro seguro?"
 	},
+	"users": {
+		"header": "Mis Passwords",
+		"btn-create-user": "Nuevo Usuario",
+		"btn-reload": "Recargar",
+		"no-users": "No hay usuarios",
+		"table-name": "Nombre",
+		"table-rol": "Rol",
+		"delete-user-confirmation": "¿Seguro seguro?"
+	},
 	"account": {
 		"header_new": "Nueva Cuenta",
 		"header_modify": "Cuenta",
@@ -62,6 +71,7 @@
 		"txt-password-2": "Repetir Password",
 		"btn-modify-user": "Modificar",
 		"btn-delete-user": "Eliminar Usuario",
+		"delete-user-confirmation": "¿Seguro seguro?",
 		"btn-return": "Volver"
 	},
 	"user":{

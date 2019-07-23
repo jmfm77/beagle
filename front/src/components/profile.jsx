@@ -4,7 +4,7 @@ import { registerViewComponent, getViewComponent } from 'services/view-component
 import { t } from 'services/translation.jsx';
 import { get, post } from 'services/rest.jsx';
 import { changeLocation } from 'services/location.jsx';
-import { modalMessage } from 'services/modal.jsx';
+import { modalMessage, modalConfirmation } from 'services/modal.jsx';
 import { updateSessionInfo, sessionUsername, logout } from 'services/session.jsx'
 
 class Profile extends Component {
@@ -23,6 +23,7 @@ class Profile extends Component {
         
         // State.
         this.state = {
+            profileModalActive: false,
             username: '',
             oldpassword: '',
             password1: '',
@@ -62,15 +63,21 @@ class Profile extends Component {
     }
     
     deleteUser() {
-        get({
-            url: '/api/user/delete',
-            body: {},
-            callback: (response) => {
-                if (response){ 
-                    logout();
+        modalConfirmation(
+                t('global.confirmation'),
+                t('profile.delete-user-confirmation'),
+                () => {
+                    get({
+                        url: '/api/user/delete',
+                        body: {},
+                        callback: (response) => {
+                            if (response){ 
+                                logout();
+                            }
+                        }
+                    });
                 }
-            }
-        });
+            );        
     }
     
     render() {
