@@ -23,8 +23,8 @@ public class UserEntity {
 
 	@Column(name = "username")
 	@NotBlank
-	@Size(min = 9, max = 9)
-	@Pattern(regexp = "\\d{8}[A-Z]")
+	@Size(min = 6, max = 256)
+	@Pattern(regexp = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
 	private String username;
 
 	@Column(name = "password")

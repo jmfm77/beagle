@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { Container, Row, Col, Jumbotron, Form, FormGroup, Input, InputGroup, Button, Popover, PopoverBody, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { registerViewComponent, getViewComponent } from 'services/view-components.jsx';
 import { t } from 'services/translation.jsx';
@@ -56,6 +57,8 @@ class Login extends Component {
         });
 
     }
+    
+
 
     render() {
 
@@ -91,10 +94,16 @@ class Login extends Component {
                             <FormGroup className="group-spaced">
                                 <Button type="submit" color="primary">{t('login.btn-login')}</Button>
                             </FormGroup>
+                            <FormGroup>
+                                <Link to={'/new-user'}>{t('user.new-user')}</Link>
+                            </FormGroup>
+                            
                         </Form>
-
+                               
                     </Jumbotron>
-                </Col>
+
+                                    
+               </Col>
 
             </Container>
         );

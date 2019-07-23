@@ -128,7 +128,17 @@ function processSuccess(callback, businessLogicExceptionCallback, response) {
 
         changeLocation('/login');
 
-    } else {
+    } else if (response.status == 400){
+        response.json().then((responseJson) => {
+            if(responseJson.message.toString().indexOf(t('global.validation-error'))!=-1){
+                modalMessage(t('global.error'), t('global.validacion-error-message'), null);
+            }else{
+                processError(responseJson.error);
+            }
+        });    
+    } 
+    
+    else {
 
         modalMessage(t('global.error'), t('global.error-occurred'), () => {
             changeLocation('/login');

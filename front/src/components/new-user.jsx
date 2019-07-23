@@ -5,9 +5,8 @@ import { t } from 'services/translation.jsx';
 import { get, post } from 'services/rest.jsx';
 import { changeLocation } from 'services/location.jsx';
 import { modalMessage } from 'services/modal.jsx';
-import { updateSessionInfo, sessionUsername, logout } from 'services/session.jsx'
 
-class Profile extends Component {
+class User extends Component {
 
     constructor(props) {
 
@@ -15,60 +14,42 @@ class Profile extends Component {
         super(props);
 
         // Register this view component.
-        registerViewComponent('profile', this);
+        registerViewComponent('user', this);
 
         // Functions binding to this.
-        this.modifyUser = this.modifyUser.bind(this);
-        this.deleteUser = this.deleteUser.bind(this);
+        this.createUser = this.createUser.bind(this);
+        this.volver = this.volver.bind(this);
         
         // State.
         this.state = {
             username: '',
-            oldpassword: '',
             password1: '',
-            password2: ''
+            password2: '',
+            role: ''
         };
 
     }
     
-    componentDidMount() {
-
-        updateSessionInfo({
-            callback: () => {
-                this.setState({
-                    username: sessionUsername()
-                });
-            }
-        });
-
-    }
-            
+          
     volver(){
-        changeLocation('/accounts');
+        changeLocation('/login');
     }
 
-    modifyUser() {
+    createUser() {
         post({
-            url: '/api/user/modify',
+            url: '/api/user/create',
             body: {
-                oldPassword: this.state.oldpassword,
-                newPassword1: this.state.password1,
-                newPassword2: this.state.password2,
+                username: this.state.username,
+                password1: this.state.password1,
+                password2: this.state.password2,
+                role: 'ROLE_USER'
             },
             callback: (response) => {
-                    changeLocation('/accounts');
-            }
-        });
-    }
-    
-    deleteUser() {
-        get({
-            url: '/api/user/delete',
-            body: {},
-            callback: (response) => {
-                if (response){ 
-                    logout();
-                }
+                if (response) {
+                    modalMessage(t('user.header-user-created'), t('user.user-created'), () => {
+                        changeLocation('/login');
+                    });
+                } 
             }
         });
     }
@@ -80,33 +61,39 @@ class Profile extends Component {
 
                 <Col className="main-col">
                     <Jumbotron className="text-center">
-                        <h3>{t('profile.header_modify')} {this.state.username}</h3><hr />
-                        <Form onSubmit={(e) => { e.preventDefault(); this.modifyUser(); }}>
+                        <h3>{t('user.new-user')}</h3><hr />
+                        <Form onSubmit={(e) => { e.preventDefault(); this.createUser(); }}>
                             <FormGroup>
                                 <Input
-                                    type="password"
-                                    placeholder={t('profile.txt-old-password')}
-                                    onChange={(e) => { this.setState({ oldpassword: e.target.value }) }}
+                                    type="text"
+                                    required
+                                    autoFocus
+                                    autoComplete="email"
+                                    placeholder={t('user.txt-username')}
+                                    onChange={(e) => { this.setState({ username: e.target.value }) }}
                                 />
                             </FormGroup>
                             <FormGroup>
                                 <Input
                                     type="password"
-                                    placeholder={t('profile.txt-password-1')}
+                                    autoComplete="current-password"
+                                    required
+                                    placeholder={t('user.txt-password-1')}
                                     onChange={(e) => { this.setState({ password1: e.target.value }) }}
                                 />
                             </FormGroup>
                             <FormGroup>
                                 <Input
                                     type="password"
-                                    placeholder={t('profile.txt-password-2')}
+                                    autoComplete="current-password"
+                                    required
+                                    placeholder={t('user.txt-password-2')}
                                     onChange={(e) => { this.setState({ password2: e.target.value }) }}
                                 />
                             </FormGroup>
                             <FormGroup className="group-spaced">
-                                <Button type="submit" color="primary">{t('profile.btn-modify-user')}</Button>
-                                <Button color="secondary" onClick={this.volver}>{t('profile.btn-return')}</Button>
-                                <Button color="warning" onClick={this.deleteUser}>{t('profile.btn-delete-user')}</Button>
+                                <Button type="submit" color="primary">{t('user.btn-create-user')}</Button>
+                                <Button color="secondary" onClick={this.volver}>{t('user.btn-return')}</Button>
                             </FormGroup>
                         </Form>
                     </Jumbotron>
@@ -116,4 +103,4 @@ class Profile extends Component {
     }
 }
 
-export default Profile;
+export default User;

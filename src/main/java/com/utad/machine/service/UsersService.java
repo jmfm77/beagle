@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.utad.machine.dto.UserDto;
@@ -23,6 +24,9 @@ public class UsersService {
 	@Autowired
 	private UsersMapper usersMapper;
 
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
 	public UserDto getByUsername(String username) {
 
 		UserEntity userEntity = usersRepository.findByUsername(username);
@@ -31,9 +35,9 @@ public class UsersService {
 
 	}
 
-	public UserDto getByIdUser(Long iduser) {
+	public UserDto getByUserId(Long iduser) {
 
-		UserEntity userEntity = usersRepository.findByIdUser(iduser);
+		UserEntity userEntity = usersRepository.findByUserId(iduser);
 		UserDto userDto = usersMapper.toDto(userEntity);
 		return userDto;
 
@@ -48,11 +52,21 @@ public class UsersService {
 
 	}
 
-	public UserDto create(String username, String password, String role) {
+	public UserDto create(String username, String password1, String password2, String role) {
+
+		if (!password1.equals(password2)) {
+			throw new BusinessLogicException("incorrect-password");
+		}
+
+		UserDto userDtoAux = getByUsername(username);
+
+		if (userDtoAux != null) {
+			throw new BusinessLogicException("user-already-exists");
+		}
 
 		UserEntity userEntity = new UserEntity();
 		userEntity.setUsername(username);
-		userEntity.setPassword(password);
+		userEntity.setPassword(passwordEncoder.encode(password1));
 		userEntity.setRole(role);
 		userEntity = usersRepository.save(userEntity);
 
@@ -66,24 +80,25 @@ public class UsersService {
 
 		UserEntity userEntity = new UserEntity();
 
-		UserDto userDto = getByIdUser(idUser);
+		UserDto userDto = getByUserId(idUser);
 
-		if (!userDto.getPassword().equals(oldPassword)) {
+		if (!passwordEncoder.matches(oldPassword, userDto.getPassword())) {
 			throw new BusinessLogicException("incorrect-password");
 		}
 		if (!newPassword1.equals(newPassword2)) {
 			throw new BusinessLogicException("incorrect-password");
 		}
 
+		userEntity.setUserId(idUser);
 		userEntity.setUsername(userDto.getUsername());
-		userEntity.setPassword(newPassword1);
+		userEntity.setPassword(passwordEncoder.encode(newPassword1));
 		userEntity.setRole(userDto.getRole());
 		userEntity = usersRepository.save(userEntity);
 	}
 
-	public void deleteByUsername(String username) {
+	public void deleteByUserId(Long userId) {
 
-		UserEntity userEntity = usersRepository.findByUsername(username);
+		UserEntity userEntity = usersRepository.findByUserId(userId);
 
 		if (userEntity == null) {
 			throw new BusinessLogicException("user-does-not-exist");

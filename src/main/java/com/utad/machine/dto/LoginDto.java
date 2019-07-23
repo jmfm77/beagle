@@ -12,13 +12,10 @@ public class LoginDto {
 	private String username;
 
 	@NotBlank
-	// @Size(min = 8, max = 256)
+	@Size(min = 8, max = 256)
 	// Minimum eight characters, at least one uppercase letter, one lowercase
 	// letter, one number and one special character
-	// @Pattern(regexp =
-	// "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]$")
-	// Minimum eight characters, at least one letter and one number
-	// @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]$")
+	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&].*$")
 	private String password;
 
 	public String getUsername() {

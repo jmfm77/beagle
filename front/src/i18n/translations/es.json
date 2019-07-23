@@ -5,6 +5,8 @@
 		"confirmation": "Confirmación",
 		"error": "Error",
 		"error-occurred": "Ha ocurrido un error. Por favor, inténtelo de nuevo más tarde.",
+		"validation-error": "Validation failed for object",
+		"validacion-error-message": "Validación incorrecta",
 		"yes": "Sí",
 		"no": "No"
 	},
@@ -28,9 +30,10 @@
 		"header": "Mis Passwords",
 		"btn-create-account": "Nueva Cuenta",
 		"btn-reload": "Recargar",
-		"no-accounts": "¡Nada por aquí, nada por allá!",
+		"no-accounts": "No hay cuentas para el usuario",
 		"table-name": "Nombre",
 		"table-description": "Descripción",
+		"table-uri": "URI",
 		"table-user": "Usuario",
 		"table-password": "Password",
 		"delete-account-confirmation": "¿Seguro seguro?"
@@ -58,12 +61,26 @@
 		"txt-password-1": "Nueva Password",
 		"txt-password-2": "Repetir Password",
 		"btn-modify-user": "Modificar",
+		"btn-delete-user": "Eliminar Usuario",
 		"btn-return": "Volver"
+	},
+	"user":{
+		"new-user": "Nuevo Usuario",
+		"txt-username": "Usuario",
+		"txt-password-1": "Password - Mínimo ocho caracteres, minúscula, mayúscula, numérico y carácter especial (@$!%*?&)",
+		"txt-password-2": "Repetir Password",
+		"btn-create-user": "Crear",
+		"btn-return": "Volver",
+		"header-user-created": "Nuevo usuario",
+		"user-created": "Usuario creado correctamente"
 	},
 	"errors": {
 		"account-does-not-exist": "La cuenta no existe",
 		"account-already-exist": "Ya existe una cuenta con ese nombre",
-		"account-has-funds": "No se puede eliminar una cuenta con fondos",
-		"insufficient-funds": "No tiene pelas!!!"
+		"incorrect-password": "Password incorrecta",
+		"user-already-exist": "Ya existe un usuario con ese nombre",
+		"user-error": "Error en la creaci�n del usuario",
+		"user-does-not-exist": "El usuario no existe"
+		
 	}
 }

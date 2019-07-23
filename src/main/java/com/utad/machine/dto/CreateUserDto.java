@@ -12,7 +12,18 @@ public class CreateUserDto {
 	private String username;
 
 	@NotBlank
-	private String password;
+	@Size(min = 8, max = 256)
+	// Minimum eight characters, at least one uppercase letter, one lowercase
+	// letter, one number and one special character
+	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&].*$")
+	private String password1;
+
+	@NotBlank
+	@Size(min = 8, max = 256)
+	// Minimum eight characters, at least one uppercase letter, one lowercase
+	// letter, one number and one special character
+	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&].*$")
+	private String password2;
 
 	@NotBlank
 	@Pattern(regexp = "ROLE_(ADMIN|USER)")
@@ -26,12 +37,12 @@ public class CreateUserDto {
 		this.username = username;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getPassword1() {
+		return password1;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPassword1(String password1) {
+		this.password1 = password1;
 	}
 
 	public String getRole() {
@@ -40,6 +51,14 @@ public class CreateUserDto {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public String getPassword2() {
+		return password2;
+	}
+
+	public void setPassword2(String password2) {
+		this.password2 = password2;
 	}
 
 }

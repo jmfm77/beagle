@@ -30,7 +30,7 @@ export function updateSessionInfo({
             var previousSession = currentSession || {};
             currentSession = response;
 
-            if (currentLocationPath() != '/login' && !isAuthenticated()) {
+            if (currentLocationPath() != '/login' && currentLocationPath() != '/new-user' && !isAuthenticated()) {
                 changeLocation('/login');
                 return;
             }

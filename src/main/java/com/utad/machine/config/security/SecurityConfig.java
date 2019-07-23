@@ -86,7 +86,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 
 				// Allow Base URLs
-				.and().authorizeRequests().antMatchers("/api/session/login").permitAll().and().authorizeRequests()
+				.and().authorizeRequests().antMatchers("/api/session/login").permitAll().and().authorizeRequests().and()
+				.authorizeRequests().antMatchers("/api/user/create").permitAll().and().authorizeRequests()
 				.antMatchers("/api/session/logout").permitAll().and().authorizeRequests()
 				.antMatchers("/api/session/info").permitAll()
 

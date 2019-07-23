@@ -80,7 +80,9 @@ class Account extends Component {
                 password: this.state.password
             },
             callback: (response) => {
+                if (response){    
                     changeLocation('/accounts');
+                }
             }
         });
 

@@ -13,6 +13,7 @@ import NavigationBar from 'components/navigation-bar.jsx';
 import Accounts from 'components/accounts.jsx';
 import Account from 'components/account.jsx';
 import Profile from 'components/profile.jsx';
+import User from 'components/new-user.jsx';
 
 class App extends Component {
 
@@ -52,9 +53,11 @@ class App extends Component {
             <div>
 
                 <Route exact path='/login' component={Login} />
-                <Route exact path={'/(accounts|account)'} component={NavigationBar} />
+                <Route exact path={'/(accounts|account|profile)'} component={NavigationBar} />
                 <Route exact path='/accounts' component={Accounts} />
                 <Route exact path='/account' component={Account} />
+                <Route exact path='/profile' component={Profile} />
+                <Route exact path='/new-user' component={User} />
                 
                 <Loader loading={this.state.loading} text={t('app.loading-text')} fullPage />
 

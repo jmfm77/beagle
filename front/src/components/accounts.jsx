@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom"
+import { Link } from 'react-router-dom';
 import { Container, Button, Table, Form, FormGroup, Input, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import Octicon, { DiffAdded, Sync, Trashcan, RepoPull, Organization } from '@githubprimer/octicons-react'
 import { registerViewComponent, getViewComponent } from 'services/view-components.jsx';
@@ -100,7 +100,8 @@ class Accounts extends Component {
                                 <thead>
                                     <tr>
                                         <th style={{ width: '20%' }}>{t('accounts.table-name')}</th>
-                                        <th style={{ width: '40%' }}>{t('accounts.table-description')}</th>
+                                        <th style={{ width: '20%' }}>{t('accounts.table-description')}</th>
+                                        <th style={{ width: '20%' }}>{t('accounts.table-uri')}</th>
                                         <th style={{ width: '20%' }}>{t('accounts.table-user')}</th>
                                         <th style={{ width: '20%' }}>{t('accounts.table-password')}</th>
                                         <th style={{ width: '5rem' }}></th>
@@ -110,7 +111,8 @@ class Accounts extends Component {
                                     {this.state.accounts.map((account, i) =>
                                         <tr key={'secret-' + account.nombre}>
                                             <td style={{ width: '20%' }}><Link to={'/account?securedAccountId='+account.securedAccountId}>{account.name}</Link></td>
-                                            <td style={{ width: '40%' }}>{account.description}</td>
+                                            <td style={{ width: '20%' }}>{account.description}</td>
+                                            <td style={{ width: '20%' }}>{account.uri}</td>
                                             <td style={{ width: '20%' }}>{account.username}</td>
                                             <td style={{ width: '20%' }}>{account.password}</td>
                                             <td style={{ width: '5rem' }} align="center">

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.utad.machine.dto.CreateUserDto;
-import com.utad.machine.dto.DeleteUserDto;
 import com.utad.machine.dto.ModifyUserDto;
 import com.utad.machine.dto.SuccessDto;
 import com.utad.machine.dto.UserDto;
@@ -46,35 +45,32 @@ public class UsersController {
 
 	@PostMapping("/create")
 
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public UserDto create(@RequestBody(required = true) @Valid CreateUserDto createUserDto) {
 
-		return usersService.create(createUserDto.getUsername(), passwordEncoder.encode(createUserDto.getPassword()),
-				createUserDto.getRole());
+		return usersService.create(createUserDto.getUsername(), createUserDto.getPassword1(),
+				createUserDto.getPassword2(), createUserDto.getRole());
 
 	}
 
-	@PostMapping("/modify-user")
+	@PostMapping("/modify")
 
 	@PreAuthorize("hasRole('ROLE_USER')")
 	public SuccessDto modify(@RequestBody(required = true) @Valid ModifyUserDto modifyUserDto) {
 
 		Long userId = (Long) httpSession.getAttribute("user-id");
 
-		usersService.modify(userId, passwordEncoder.encode(modifyUserDto.getOldPassword()),
-				passwordEncoder.encode(modifyUserDto.getNewPassword1()),
-				passwordEncoder.encode(modifyUserDto.getNewPassword2()));
+		usersService.modify(userId, modifyUserDto.getOldPassword(), modifyUserDto.getNewPassword1(),
+				modifyUserDto.getNewPassword2());
 
 		return new SuccessDto(true);
 
 	}
 
-	@PostMapping("/delete")
-
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public SuccessDto delete(@RequestBody(required = true) @Valid DeleteUserDto deleteUserDto) {
-
-		usersService.deleteByUsername(deleteUserDto.getUsername());
+	@GetMapping("/delete")
+	@PreAuthorize("hasRole('ROLE_USER')")
+	public SuccessDto delete() {
+		Long userId = (Long) httpSession.getAttribute("user-id");
+		usersService.deleteByUserId(userId);
 
 		return new SuccessDto(true);
 

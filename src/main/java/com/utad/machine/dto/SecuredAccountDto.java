@@ -14,21 +14,21 @@ public class SecuredAccountDto {
 	private String name;
 
 	@Size(max = 250)
-	// @Pattern(regexp = "\\d[aA-Z]")
+	@Pattern(regexp = "^[a-zA-Z0-9]+$")
 	private String description;
 
 	@NotBlank
 	@Size(min = 1, max = 256)
-	// @Pattern(regexp = "\\d{8}[A-Z]")
+	@Pattern(regexp = "^[a-zA-Z0-9]+$")
 	private String username;
 
 	@NotBlank
 	@Size(min = 1, max = 256)
-	// @Pattern(regexp = "\\d{8}[A-Z]")
+	@Pattern(regexp = "^[a-zA-Z0-9]+$")
 	private String password;
 
 	@Size(max = 500)
-	// @Pattern(regexp = "\\d{8}[A-Z]")
+	@Pattern(regexp = "^[a-zA-Z0-9]+$")
 	private String uri;
 
 	@Size(min = 1, max = 45)
