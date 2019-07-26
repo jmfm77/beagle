@@ -12,8 +12,10 @@ import Login from 'components/login.jsx';
 import NavigationBar from 'components/navigation-bar.jsx';
 import Accounts from 'components/accounts.jsx';
 import Account from 'components/account.jsx';
+import AdminProfile from 'components/admin-profile.jsx';
 import Profile from 'components/profile.jsx';
 import User from 'components/new-user.jsx';
+import AdminUser from 'components/admin-new-user.jsx';
 import Users from 'components/users.jsx';
 
 class App extends Component {
@@ -54,11 +56,13 @@ class App extends Component {
             <div>
 
                 <Route exact path='/login' component={Login} />
-                <Route exact path={'/(accounts|account|profile|users)'} component={NavigationBar} />
+                <Route exact path={'/(accounts|account|profile|users|admin-new-user|admin-profile)'} component={NavigationBar} />
                 <Route exact path='/accounts' component={Accounts} />
                 <Route exact path='/account' component={Account} />
+                <Route exact path='/admin-profile' component={AdminProfile} />
                 <Route exact path='/profile' component={Profile} />
                 <Route exact path='/new-user' component={User} />
+                <Route exact path='/admin-new-user' component={AdminUser} />
                 <Route exact path='/users' component={Users} />
                 
                 <Loader loading={this.state.loading} text={t('app.loading-text')} fullPage />

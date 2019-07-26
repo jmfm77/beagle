@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.utad.machine.dto.AdminUserDto;
 import com.utad.machine.dto.UserDto;
 import com.utad.machine.entity.UserEntity;
 import com.utad.machine.exception.BusinessLogicException;
@@ -43,10 +44,10 @@ public class UsersService {
 
 	}
 
-	public List<UserDto> getAll() {
+	public List<AdminUserDto> getAll() {
 
 		List<UserEntity> userEntities = usersRepository.findAll();
-		List<UserDto> userDtos = usersMapper.toDto(userEntities);
+		List<AdminUserDto> userDtos = usersMapper.toAdminDto(userEntities);
 
 		return userDtos;
 
@@ -83,6 +84,27 @@ public class UsersService {
 		UserDto userDto = getByUserId(idUser);
 
 		if (!passwordEncoder.matches(oldPassword, userDto.getPassword())) {
+			throw new BusinessLogicException("incorrect-password");
+		}
+		if (!newPassword1.equals(newPassword2)) {
+			throw new BusinessLogicException("incorrect-password");
+		}
+
+		userEntity.setUserId(idUser);
+		userEntity.setUsername(userDto.getUsername());
+		userEntity.setPassword(passwordEncoder.encode(newPassword1));
+		userEntity.setRole(userDto.getRole());
+		userEntity = usersRepository.save(userEntity);
+	}
+
+	public void adminModify(Long idAdmin, Long idUser, String adminPassword, String newPassword1, String newPassword2) {
+
+		UserEntity userEntity = new UserEntity();
+
+		UserDto adminDto = getByUserId(idAdmin);
+		UserDto userDto = getByUserId(idUser);
+
+		if (!passwordEncoder.matches(adminPassword, adminDto.getPassword())) {
 			throw new BusinessLogicException("incorrect-password");
 		}
 		if (!newPassword1.equals(newPassword2)) {

@@ -26,10 +26,10 @@ export function updateSessionInfo({
         loadingChain: loadingChain,
         loadingChained: loadingChained,
         callback: (response) => {
-
+            
             var previousSession = currentSession || {};
             currentSession = response;
-
+            
             if (currentLocationPath() != '/login' && currentLocationPath() != '/new-user' && !isAuthenticated()) {
                 changeLocation('/login');
                 return;
@@ -65,7 +65,7 @@ export function sessionUsername() {
  */
 export function sessionRoles() {
 
-    return currentSession ? currentSession.roles : null;
+    return currentSession ? currentSession.roles[0]: null;
 
 }
 

@@ -6,6 +6,7 @@ import { t } from 'services/translation.jsx';
 import { get, post } from 'services/rest.jsx';
 import { changeLocation } from 'services/location.jsx';
 import { modalMessage } from 'services/modal.jsx';
+import { updateSessionInfo, sessionRoles, sessionUsername } from 'services/session.jsx';
 
 class Login extends Component {
 
@@ -19,18 +20,37 @@ class Login extends Component {
 
         // Functions binding to this.
         this.login = this.login.bind(this);
+        this.whereIGo = this.whereIGo.bind(this);
 
         // Refs.
         this.txtUsername = React.createRef();
-
+        
         // State.
         this.state = {
+            rol: '',
             username: '',
             password: ''
         };
 
     }
 
+    whereIGo() {
+        this.state.rol = sessionRoles();
+        if (this.state.rol != null){
+            this.state.rol == t('global.role-admin')?
+                    changeLocation('/users'):
+                        this.state.rol == t('global.role-user')?
+                                changeLocation('/accounts'):
+                                    modalMessage(t('global.error'), t('login.incorrect-credentials'), () => {
+                                        this.txtUsername.current.focus();
+                                    });
+        }else{
+            modalMessage(t('global.error'), t('login.incorrect-credentials'), () => {
+                this.txtUsername.current.focus();
+            }); 
+        }
+    }
+    
     login() {
 
         post({
@@ -40,11 +60,14 @@ class Login extends Component {
                 password: this.state.password
             },
             callback: (response) => {
-
+                   
                 if (response.success) {
-
-                    changeLocation('/accounts');
-
+                    updateSessionInfo({
+                        callback: () => {
+                            this.whereIGo();
+                        }                        
+                    });
+                  
                 } else {
 
                     modalMessage(t('global.error'), t('login.incorrect-credentials'), () => {
@@ -58,8 +81,6 @@ class Login extends Component {
 
     }
     
-
-
     render() {
 
         return (
@@ -96,6 +117,9 @@ class Login extends Component {
                             </FormGroup>
                             <FormGroup>
                                 <Link to={'/new-user'}>{t('user.new-user')}</Link>
+                            </FormGroup>
+                                <FormGroup>
+                                <Link to={'/rememner-password'}>{t('login.link-remember-password')}</Link>
                             </FormGroup>
                             
                         </Form>

@@ -3,7 +3,7 @@ import { Navbar, NavbarBrand, NavbarToggler, Collapse, Nav, NavItem, NavLink, Bu
 import { NavLink as RRNavLink } from "react-router-dom"
 import { registerViewComponent, getViewComponent } from 'services/view-components.jsx';
 import { t } from 'services/translation.jsx';
-import { updateSessionInfo, sessionUsername, logout } from 'services/session.jsx';
+import { updateSessionInfo, sessionUsername, sessionRoles, logout } from 'services/session.jsx';
 
 class NavigationBar extends Component {
 
@@ -21,7 +21,8 @@ class NavigationBar extends Component {
         // State.
         this.state = {
             navbarTogglerActive: false,
-            username: null
+            username: null,
+            rol: null
         };
 
     }
@@ -33,9 +34,11 @@ class NavigationBar extends Component {
                 this.setState({
                     username: sessionUsername()
                 });
+                this.setState({
+                    rol: sessionRoles()
+                });
             }
         });
-
     }
 
     toggleNavbarToggler() {
@@ -57,10 +60,17 @@ class NavigationBar extends Component {
 
                     <Collapse isOpen={this.state.navbarTogglerActive} navbar>
 
-                        <Nav className="mr-auto" navbar>
-                            <NavItem><NavLink tag={RRNavLink} to={'/accounts'} activeClassName="active">{t('navigation-bar.items')}</NavLink></NavItem>
-                        </Nav>
-
+                        {this.state.rol != null?
+                            this.state.rol == t('global.role-admin')?
+                                <Nav className="mr-auto" navbar>
+                                    <NavItem><NavLink tag={RRNavLink} to={'/users'} activeClassName="active">{t('navigation-bar.items')}</NavLink></NavItem>
+                                </Nav>:
+                                    this.state.rol == t('global.role-user')?
+                                        <Nav className="mr-auto" navbar>
+                                            <NavItem><NavLink tag={RRNavLink} to={'/accounts'} activeClassName="active">{t('navigation-bar.items')}</NavLink></NavItem>
+                                        </Nav>:null:null
+                        }
+                            
                         <Nav className="ml-auto" navbar>
                             <NavItem><NavLink tag={RRNavLink} to={'/profile'} activeClassName="active">{this.state.username}</NavLink></NavItem>
                             <div className="form-inline"><Button color="secondary" size="sm" onClick={logout}>{t('navigation-bar.logout')}</Button></div>

@@ -2,6 +2,7 @@ import { loading as loadingF, notLoading as notLoadingF } from 'services/loading
 import { t } from 'services/translation.jsx';
 import { modalMessage } from 'services/modal.jsx';
 import { changeLocation } from 'services/location.jsx';
+import { logout } from 'services/session.jsx';
 
 /**
  * REST GET.
@@ -126,7 +127,8 @@ function processSuccess(callback, businessLogicExceptionCallback, response) {
 
     } else if (response.status == 401 || response.status == 403) {
 
-        changeLocation('/login');
+        //changeLocation('/login');
+        logout();
 
     } else if (response.status == 400){
         response.json().then((responseJson) => {

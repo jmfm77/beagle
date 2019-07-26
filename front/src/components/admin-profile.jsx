@@ -5,9 +5,9 @@ import { t } from 'services/translation.jsx';
 import { get, post } from 'services/rest.jsx';
 import { changeLocation } from 'services/location.jsx';
 import { modalMessage, modalConfirmation } from 'services/modal.jsx';
-import { updateSessionInfo, sessionUsername, sessionRoles, logout } from 'services/session.jsx'
+import { updateSessionInfo, sessionUsername, logout } from 'services/session.jsx'
 
-class Profile extends Component {
+class AdminProfile extends Component {
 
     constructor(props) {
 
@@ -15,18 +15,20 @@ class Profile extends Component {
         super(props);
 
         // Register this view component.
-        registerViewComponent('profile', this);
+        registerViewComponent('admin-profile', this);
 
         // Functions binding to this.
+        this.loadUser = this.loadUser.bind(this);
+        this.volver = this.volver.bind(this);
         this.modifyUser = this.modifyUser.bind(this);
         this.deleteUser = this.deleteUser.bind(this);
-        this.volver = this.volver.bind(this);
         
         // State.
         this.state = {
+            user: '',
+            userId: '',
             username: '',
-            rol: '',
-            oldpassword: '',
+            adminpassword: '',
             password1: '',
             password2: ''
         };
@@ -35,38 +37,43 @@ class Profile extends Component {
     
     componentDidMount() {
 
-        updateSessionInfo({
-            callback: () => {
+        this.loadUser();
+
+    }
+    
+    loadUser() {
+        const search = this.props.location.search;
+        const params = new URLSearchParams(search);
+        this.state.userId = params.get('userId');
+        this.state.userId == null ? null:
+        get({
+            url: '/api/user/get-user',
+            params:{userId:this.state.userId},
+            callback: (response) => {
                 this.setState({
-                    username: sessionUsername()
+                    user: response
                 });
-                this.setState({
-                    rol: sessionRoles()
-                });
+                this.state.username = this.state.user.username;
             }
         });
-
+        
     }
             
     volver(){
-        if(this.state.rol != null){
-                this.state.rol == t('global.role-admin')?
-                        changeLocation('/users'):
-                            this.state.rol == t('global.role-user')?
-                                    changeLocation('/accounts'):null
-        }
+        changeLocation('/users');
     }
 
     modifyUser() {
         post({
-            url: '/api/user/modify',
+            url: '/api/user/admin-modify',
             body: {
-                oldPassword: this.state.oldpassword,
+                userId:  this.state.userId,
+                adminPassword: this.state.adminpassword,
                 newPassword1: this.state.password1,
                 newPassword2: this.state.password2,
             },
             callback: (response) => {
-                    changeLocation('/accounts');
+                    changeLocation('/users');
             }
         });
     }
@@ -101,15 +108,13 @@ class Profile extends Component {
                             <FormGroup>
                                 <Input
                                     type="password"
-                                    autoComplete="current-password"
-                                    placeholder={t('profile.txt-old-password')}
-                                    onChange={(e) => { this.setState({ oldpassword: e.target.value }) }}
+                                    placeholder={t('profile.txt-admin-password')}
+                                    onChange={(e) => { this.setState({ adminpassword: e.target.value }) }}
                                 />
                             </FormGroup>
                             <FormGroup>
                                 <Input
                                     type="password"
-                                    autoComplete="new-password"
                                     placeholder={t('profile.txt-password-1')}
                                     onChange={(e) => { this.setState({ password1: e.target.value }) }}
                                 />
@@ -117,7 +122,6 @@ class Profile extends Component {
                             <FormGroup>
                                 <Input
                                     type="password"
-                                    autoComplete="new-password"
                                     placeholder={t('profile.txt-password-2')}
                                     onChange={(e) => { this.setState({ password2: e.target.value }) }}
                                 />
@@ -135,4 +139,4 @@ class Profile extends Component {
     }
 }
 
-export default Profile;
+export default AdminProfile;

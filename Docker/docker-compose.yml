@@ -1,0 +1,18 @@
+version: "3.7"
+
+services:
+  machine:
+    container_name: machine
+    image: jmfm77/machine
+    command: --spring.config.location=file:/run/secrets/config.properties,file:/run/secrets/secrets.properties
+    ports:
+      - "9000:9000"
+    secrets:
+      - config.properties
+      - secrets.properties
+
+secrets:
+  config.properties:
+    file: ../config/dev-local-docker.properties
+  secrets.properties:
+    file: ../secrets/dev-local-docker.properties

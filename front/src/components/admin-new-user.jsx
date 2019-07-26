@@ -6,7 +6,7 @@ import { get, post } from 'services/rest.jsx';
 import { changeLocation } from 'services/location.jsx';
 import { modalMessage } from 'services/modal.jsx';
 
-class User extends Component {
+class AdminUser extends Component {
 
     constructor(props) {
 
@@ -14,7 +14,7 @@ class User extends Component {
         super(props);
 
         // Register this view component.
-        registerViewComponent('user', this);
+        registerViewComponent('admin-user', this);
 
         // Functions binding to this.
         this.createUser = this.createUser.bind(this);
@@ -32,7 +32,7 @@ class User extends Component {
     
           
     volver(){
-        changeLocation('/login');
+        changeLocation('/users');
     }
 
     createUser() {
@@ -47,7 +47,7 @@ class User extends Component {
             callback: (response) => {
                 if (response) {
                     modalMessage(t('user.header-user-created'), t('user.user-created'), () => {
-                        changeLocation('/login');
+                        changeLocation('/users');
                     });
                 } 
             }
@@ -103,4 +103,4 @@ class User extends Component {
     }
 }
 
-export default User;
+export default AdminUser;

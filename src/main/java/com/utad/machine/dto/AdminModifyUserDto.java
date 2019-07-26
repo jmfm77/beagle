@@ -1,16 +1,20 @@
 package com.utad.machine.dto;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-public class ModifyUserDto {
+public class AdminModifyUserDto {
+	@NotNull
+	private Long userId;
+
 	@NotBlank
 	@Size(min = 8, max = 256)
 	// Minimum eight characters, at least one uppercase letter, one lowercase
 	// letter, one number and one special character
 	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&].*$")
-	private String oldPassword;
+	private String adminPassword;
 
 	@NotBlank
 	@Size(min = 8, max = 256)
@@ -26,12 +30,20 @@ public class ModifyUserDto {
 	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&].*$")
 	private String newPassword2;
 
-	public String getOldPassword() {
-		return oldPassword;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setOldPassword(String oldPassword) {
-		this.oldPassword = oldPassword;
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	public String getAdminPassword() {
+		return adminPassword;
+	}
+
+	public void setAdminPassword(String adminPassword) {
+		this.adminPassword = adminPassword;
 	}
 
 	public String getNewPassword1() {

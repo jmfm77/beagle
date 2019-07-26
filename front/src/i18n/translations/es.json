@@ -7,6 +7,8 @@
 		"error-occurred": "Ha ocurrido un error. Por favor, inténtelo de nuevo más tarde.",
 		"validation-error": "Validation failed for object",
 		"validacion-error-message": "Validación incorrecta",
+		"role-admin": "ROLE_ADMIN",
+		"role-user": "ROLE_USER",
 		"yes": "Sí",
 		"no": "No"
 	},
@@ -19,7 +21,8 @@
 		"txt-username": "Usuario",
 		"txt-password": "Contraseña",
 		"btn-login": "Login",
-		"incorrect-credentials": "Credenciales Incorrectas"
+		"incorrect-credentials": "Credenciales Incorrectas",
+		"link-remember-password": "Olvido Password"
 	},
 	"navigation-bar": {
 		"brand": "Secured Accounts!!!",
@@ -67,6 +70,7 @@
 		"header_modify": "Modificar Perfil Usuario",
 		"txt-username": "Usuario",
 		"txt-old-password": "Password Antigua",
+		"txt-admin-password": "Password Administrador",
 		"txt-password-1": "Nueva Password",
 		"txt-password-2": "Repetir Password",
 		"btn-modify-user": "Modificar",

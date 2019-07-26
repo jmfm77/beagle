@@ -22,7 +22,7 @@ function handleLocationChange(location) {
             if (path === '/') {
                 changeLocation(isAuthenticated() ? '/accounts' : '/login');
             } else if (path === '/login' && isAuthenticated()) {
-                changeLocation('/accounts');
+                //changeLocation('/accounts');
             }
 
         }

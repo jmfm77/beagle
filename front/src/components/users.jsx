@@ -20,8 +20,8 @@ class Users extends Component {
 
         // Functions binding to this.
         this.loadUsers = this.loadUsers.bind(this);
-//        this.ceateAccount = this.createUser.bind(this);
-        //this.deleteAccount = this.deleteUser.bind(this);
+        this.ceateUser = this.createUser.bind(this);
+        this.deleteUser = this.deleteUser.bind(this);
 
         // State.
         this.state = {
@@ -52,17 +52,17 @@ class Users extends Component {
 
     }
 
-    deleteAccount(account) {
+    deleteUser(user) {
 
         modalConfirmation(
             t('global.confirmation'),
-            t('users.delete-account-confirmation'),
+            t('users.delete-user-confirmation'),
             () => {
 
                 post({
-                    url: '/api/user/delete',
+                    url: '/api/user/admin-delete',
                     body: {
-                        'name': account.name
+                        'userId': user.userId
                     },
                     callback: (response) => {
                         this.loadUsers();
@@ -74,9 +74,9 @@ class Users extends Component {
 
     }
  
-    createAccount() {
+    createUser() {
 
-        changeLocation('/account');
+        changeLocation('/admin-new-user');
     }
 
     render() {
@@ -87,7 +87,7 @@ class Users extends Component {
                 <h4>{t('users.header')}</h4><hr />
 
                 <div className="group-spaced" style={{ margin: '1.5rem 0' }}>
-                    <Button color="primary" onClick={() => { this.createAccount() }}>{t('users.btn-create-user')}</Button>
+                    <Button color="primary" onClick={() => { this.createUser() }}>{t('users.btn-create-user')}</Button>
                 </div>
 
                 {
@@ -106,7 +106,7 @@ class Users extends Component {
                                 <tbody>
                                     {this.state.users.map((user, i) =>
                                         <tr key={'secret-' + user.username}>
-                                            <td style={{ width: '50%' }}><Link to={'/user?secureduserId='+user.secureduserId}>{user.username}</Link></td>
+                                            <td style={{ width: '50%' }}><Link to={'/admin-profile?userId='+user.userId}>{user.username}</Link></td>
                                             <td style={{ width: '50%' }}>{user.role}</td>
                                             <td style={{ width: '5rem' }} align="center">
                                                 <span onClick={() => { this.deleteUser(user) }} style={{ cursor: 'pointer' }}>
