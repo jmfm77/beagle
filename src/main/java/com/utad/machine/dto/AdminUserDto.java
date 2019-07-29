@@ -13,6 +13,15 @@ public class AdminUserDto {
 
 	private String role;
 
+	@JsonIgnore
+	private String token;
+
+	@JsonIgnore
+	private String createdOn;
+
+	@JsonIgnore
+	private String lastToken;
+
 	public Long getUserId() {
 		return userId;
 	}
@@ -43,6 +52,30 @@ public class AdminUserDto {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	public String getCreatedOn() {
+		return createdOn;
+	}
+
+	public void setCreatedOn(String createdOn) {
+		this.createdOn = createdOn;
+	}
+
+	public String getLastToken() {
+		return lastToken;
+	}
+
+	public void setLastToken(String lastToken) {
+		this.lastToken = lastToken;
 	}
 
 }

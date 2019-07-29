@@ -1,7 +1,6 @@
 package com.utad.machine.dto;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 public class SecuredAccountDto {
@@ -10,29 +9,21 @@ public class SecuredAccountDto {
 
 	@NotBlank
 	@Size(min = 1, max = 100)
-	@Pattern(regexp = "^[a-zA-Z0-9]+$")
 	private String name;
 
 	@Size(max = 250)
-	@Pattern(regexp = "^[a-zA-Z0-9]+$")
 	private String description;
 
 	@NotBlank
 	@Size(min = 1, max = 256)
-	@Pattern(regexp = "^[a-zA-Z0-9]+$")
 	private String username;
 
 	@NotBlank
 	@Size(min = 1, max = 256)
-	@Pattern(regexp = "^[a-zA-Z0-9]+$")
 	private String password;
 
 	@Size(max = 500)
-	@Pattern(regexp = "^[a-zA-Z0-9]+$")
 	private String uri;
-
-	@Size(min = 1, max = 45)
-	private String token;
 
 	public Long getSecuredAccountId() {
 		return securedAccountId;
@@ -64,14 +55,6 @@ public class SecuredAccountDto {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getToken() {
-		return token;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
 	}
 
 	public String getUsername() {

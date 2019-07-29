@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import com.utad.machine.dto.ModifySecuredAccountDto;
@@ -12,13 +13,16 @@ import com.utad.machine.dto.SecuredAccountDto;
 import com.utad.machine.entity.SecuredAccountsEntity;
 import com.utad.machine.exception.BusinessLogicException;
 import com.utad.machine.mapper.SecuredAccountsMapper;
-import com.utad.machine.mapper.UsersMapper;
 import com.utad.machine.repository.SecuredAccountsRepository;
 import com.utad.machine.repository.UsersRepository;
+import com.utad.machine.util.CryptoUtils;
 
 @Service
 @Transactional
 public class SecuredAccountsService {
+
+	@Autowired
+	private Environment env;
 
 	@Autowired
 	private SecuredAccountsRepository securedAccountsRepository;
@@ -28,12 +32,6 @@ public class SecuredAccountsService {
 
 	@Autowired
 	private UsersRepository usersRepository;
-
-	@Autowired
-	private UsersMapper usersMapper;
-
-	// @Autowired
-	// private IbanService ibanService;
 
 	public List<SecuredAccountDto> getAll() {
 
@@ -69,15 +67,31 @@ public class SecuredAccountsService {
 
 	}
 
+	public String cifrar(String cadena) {
+		char[] cryptoPassword = env.getProperty("crypto.password").toCharArray();
+		CryptoUtils cryptoUtils = new CryptoUtils();
+		String cadenaCifrada = "";
+
+		try {
+			cadenaCifrada = cryptoUtils.encrypt(cadena, "AES", cryptoPassword);
+		} catch (Exception e) {
+			throw new BusinessLogicException("account-error");
+		}
+
+		return cadenaCifrada;
+	}
+
 	public SecuredAccountDto create(Long userId, SecuredAccountDto initialSecuredAccountDto) {
+
+		String username = cifrar(initialSecuredAccountDto.getUsername());
+		String password = cifrar(initialSecuredAccountDto.getPassword());
 
 		SecuredAccountsEntity securedAccountEntity = new SecuredAccountsEntity();
 		securedAccountEntity.setName(initialSecuredAccountDto.getName());
 		securedAccountEntity.setDescription(initialSecuredAccountDto.getDescription());
-		securedAccountEntity.setUsername(initialSecuredAccountDto.getUsername());
-		securedAccountEntity.setPassword(initialSecuredAccountDto.getPassword());
+		securedAccountEntity.setUsername(username);
+		securedAccountEntity.setPassword(password);
 		securedAccountEntity.setUri(initialSecuredAccountDto.getUri());
-		securedAccountEntity.setToken(initialSecuredAccountDto.getToken());
 		securedAccountEntity.setUser(usersRepository.findOne(userId));
 
 		SecuredAccountsEntity securedAccountEntityAux = findOwnedSecuredAccountByName(userId,
@@ -97,22 +111,25 @@ public class SecuredAccountsService {
 
 	public ModifySecuredAccountDto modify(Long userId, ModifySecuredAccountDto initialSecuredAccountDto) {
 
-		SecuredAccountsEntity securedAccountEntity = new SecuredAccountsEntity();
-		securedAccountEntity.setName(initialSecuredAccountDto.getName());
-		securedAccountEntity.setDescription(initialSecuredAccountDto.getDescription());
-		securedAccountEntity.setUsername(initialSecuredAccountDto.getUsername());
-		securedAccountEntity.setPassword(initialSecuredAccountDto.getPassword());
-		securedAccountEntity.setUri(initialSecuredAccountDto.getUri());
-		securedAccountEntity.setToken(initialSecuredAccountDto.getToken());
-		securedAccountEntity.setUser(usersRepository.findOne(userId));
-		securedAccountEntity = securedAccountsRepository.save(securedAccountEntity);
-
 		SecuredAccountsEntity securedAccountEntityAux = findOwnedSecuredAccountByName(userId,
 				initialSecuredAccountDto.getName());
 
 		if (securedAccountEntityAux == null) {
 			throw new BusinessLogicException("account-does-not-exist");
 		}
+
+		String username = cifrar(initialSecuredAccountDto.getUsername());
+		String password = cifrar(initialSecuredAccountDto.getPassword());
+
+		SecuredAccountsEntity securedAccountEntity = new SecuredAccountsEntity();
+		securedAccountEntity.setSecuredAccountId(securedAccountEntityAux.getSecuredAccountId());
+		securedAccountEntity.setName(initialSecuredAccountDto.getName());
+		securedAccountEntity.setDescription(initialSecuredAccountDto.getDescription());
+		securedAccountEntity.setUsername(username);
+		securedAccountEntity.setPassword(password);
+		securedAccountEntity.setUri(initialSecuredAccountDto.getUri());
+		securedAccountEntity.setUser(usersRepository.findOne(userId));
+		securedAccountEntity = securedAccountsRepository.save(securedAccountEntity);
 
 		ModifySecuredAccountDto securedAccountDto = securedAccountsMapper.toModifyDto(securedAccountEntity);
 

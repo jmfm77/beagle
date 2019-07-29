@@ -24,6 +24,9 @@ public class UsersMapper {
 		userDto.setUsername(userEntity.getUsername());
 		userDto.setPassword(userEntity.getPassword());
 		userDto.setRole(userEntity.getRole());
+		userDto.setToken(userEntity.getToken());
+		userDto.setCreatedOn(userEntity.getCreatedOn());
+		userDto.setLastToken(userEntity.getLastToken());
 
 		return userDto;
 
@@ -58,6 +61,9 @@ public class UsersMapper {
 		userDto.setUsername(userEntity.getUsername());
 		userDto.setPassword(userEntity.getPassword());
 		userDto.setRole(userEntity.getRole());
+		userDto.setToken(userEntity.getToken());
+		userDto.setCreatedOn(userEntity.getCreatedOn());
+		userDto.setLastToken(userEntity.getLastToken());
 
 		return userDto;
 

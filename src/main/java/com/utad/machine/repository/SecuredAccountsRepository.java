@@ -10,6 +10,8 @@ public interface SecuredAccountsRepository extends JpaRepository<SecuredAccounts
 
 	List<SecuredAccountsEntity> findByUserUserIdOrderByName(Long userId);
 
+	List<SecuredAccountsEntity> findByUserUserId(Long userId);
+
 	List<SecuredAccountsEntity> findByOrderByName();
 
 	List<SecuredAccountsEntity> findByUserUserIdAndName(Long userId, String name);

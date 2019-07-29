@@ -3,9 +3,11 @@
 		"@githubprimer/octicons-react": "^8.5.0",
 		"i18next": "^15.0.9",
 		"react": "^16.8.6",
+		"react-copy-to-clipboard": "^5.0.1",
 		"react-dom": "^16.8.6",
 		"react-i18next": "^10.8.1",
 		"react-overlay-loader": "0.0.3",
+		"react-recaptcha-google": "^1.1.1",
 		"react-router-dom": "^5.0.0",
 		"reactstrap": "^7.1.0"
 	},

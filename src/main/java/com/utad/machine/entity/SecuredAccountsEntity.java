@@ -34,16 +34,12 @@ public class SecuredAccountsEntity {
 	private String description;
 
 	@Column(name = "username")
-	@Size(max = 256)
+	@Size(max = 400)
 	private String username;
 
 	@Column(name = "password")
-	@Size(max = 256)
+	@Size(max = 400)
 	private String password;
-
-	@Column(name = "token")
-	@Size(max = 45)
-	private String token;
 
 	@Column(name = "uri")
 	@Size(max = 500)
@@ -92,14 +88,6 @@ public class SecuredAccountsEntity {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getToken() {
-		return token;
-	}
-
-	public void setToken(String token) {
-		this.token = token;
 	}
 
 	public String getUsername() {

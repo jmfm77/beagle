@@ -1,6 +1,0 @@
-"id_user";"username";"password";"role"
-1;"80305230V";"$2a$10$VpIaI3OnAG4hpigbK2a6y.w0pStZ85xaQB8r/cKs53FAp7kg/gBPi";"ROLE_USER"
-3;"user3";"F7226B0C7D68AA2DD5BC5863E6070497DD7BBA3E2C9521E50EBDF9C8DC600D89";"ROLE_ADMIN"
-4;"24512489D";"$2a$10$VpIaI3OnAG4hpigbK2a6y.w0pStZ85xaQB8r/cKs53FAp7kg/gBPi";"ROLE_USER"
-5;"user2";"$sys_configsys_configsys_configsys_config2a$10$29.XtKoG5gAV/RLbXdad0OW3eerV4hiy0CTdpiwNEIRfnaBA6lLlW";"ROLE_ADMIN"
-6;"12345678X";"$2a$10$VpIaI3OnAG4hpigbK2a6y.w0pStZ85xaQB8r/cKs53FAp7kg/gBPi";"ROLE_ADMIN"

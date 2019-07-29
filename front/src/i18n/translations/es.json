@@ -36,10 +36,11 @@
 		"no-accounts": "No hay cuentas para el usuario",
 		"table-name": "Nombre",
 		"table-description": "Descripción",
-		"table-uri": "URI",
+		"table-uri": "URL",
 		"table-user": "Usuario",
 		"table-password": "Password",
-		"delete-account-confirmation": "¿Seguro seguro?"
+		"delete-account-confirmation": "¿Seguro seguro?",
+		"txt-copy": "Copiar"
 	},
 	"users": {
 		"header": "Mis Passwords",
@@ -60,7 +61,7 @@
 		"no-accounts": "¡Nada por aquí, nada por allá!",
 		"txt-name": "Nombre",
 		"txt-description": "Descripción",
-		"txt-uri": "URI",
+		"txt-uri": "URL",
 		"txt-user": "Usuario",
 		"txt-password": "Password",
 		"delete-account-confirmation": "¿Seguro seguro?",
@@ -68,10 +69,10 @@
 	},
 	"profile":{
 		"header_modify": "Modificar Perfil Usuario",
-		"txt-username": "Usuario",
+		"txt-username": "Usuario (email)",
 		"txt-old-password": "Password Antigua",
 		"txt-admin-password": "Password Administrador",
-		"txt-password-1": "Nueva Password",
+		"txt-password-1": "Password - Mínimo ocho caracteres, minúscula, mayúscula, numérico y carácter especial (@$!%*?&)",
 		"txt-password-2": "Repetir Password",
 		"btn-modify-user": "Modificar",
 		"btn-delete-user": "Eliminar Usuario",
@@ -80,7 +81,7 @@
 	},
 	"user":{
 		"new-user": "Nuevo Usuario",
-		"txt-username": "Usuario",
+		"txt-username": "Usuario (email)",
 		"txt-password-1": "Password - Mínimo ocho caracteres, minúscula, mayúscula, numérico y carácter especial (@$!%*?&)",
 		"txt-password-2": "Repetir Password",
 		"btn-create-user": "Crear",
@@ -88,13 +89,29 @@
 		"header-user-created": "Nuevo usuario",
 		"user-created": "Usuario creado correctamente"
 	},
+	"reset":{
+		"head-remember-password": "Recordatorio password",
+		"head-reset-password": "Reiniciar Password para",
+		"txt-password-1": "Password - Mínimo ocho caracteres, minúscula, mayúscula, numérico y carácter especial (@$!%*?&)",
+		"txt-password-2": "Repetir Password",
+		"txt-remember-password": "Se ha enviado un correo para su reinicio de password",
+		"txt-remember-error": "Error en recordatorio de password",
+		"txt-reset": "Reiniciar",
+		"btn-reset": "Reiniciar",
+		"txt-send": "Enviar",
+		"btn-return": "Volver",
+		"txt-reset-user": "Password actualizada correctamente"
+	},
 	"errors": {
 		"account-does-not-exist": "La cuenta no existe",
 		"account-already-exist": "Ya existe una cuenta con ese nombre",
 		"incorrect-password": "Password incorrecta",
 		"user-already-exist": "Ya existe un usuario con ese nombre",
 		"user-error": "Error en la creaci�n del usuario",
-		"user-does-not-exist": "El usuario no existe"
-		
+		"account-error": "Error en el tratamiento de la cuenta",
+		"captcha-error": "Debe validar previamente el captcha",
+		"user-delete": "Error al borrar el usuario",
+		"user-does-not-exist": "El usuario no existe",
+		"token-time-limit-exceeded": "Ha sobrepasado el tiempo de validez. Por favor, vuelva a solicitar reinicio de password."		
 	}
 }

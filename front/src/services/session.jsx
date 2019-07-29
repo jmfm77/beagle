@@ -30,7 +30,8 @@ export function updateSessionInfo({
             var previousSession = currentSession || {};
             currentSession = response;
             
-            if (currentLocationPath() != '/login' && currentLocationPath() != '/new-user' && !isAuthenticated()) {
+            if (currentLocationPath() != '/login' && currentLocationPath() != '/new-user' && currentLocationPath() != '/reset' 
+                && currentLocationPath() != '/remember-password' && !isAuthenticated()) {
                 changeLocation('/login');
                 return;
             }
@@ -82,5 +83,14 @@ export function logout() {
 
         }
     });
+
+}
+
+/**
+ * @returns {string} Indicates the current session sitekey.
+ */
+export function sessionSitekey() {
+
+    return currentSession ? currentSession.sitekey : null;
 
 }

@@ -17,6 +17,9 @@ import Profile from 'components/profile.jsx';
 import User from 'components/new-user.jsx';
 import AdminUser from 'components/admin-new-user.jsx';
 import Users from 'components/users.jsx';
+import ResetUser from 'components/reset.jsx';
+import Password from 'components/remember-password.jsx';
+import { loadReCaptcha } from 'react-recaptcha-google';
 
 class App extends Component {
 
@@ -50,6 +53,10 @@ class App extends Component {
 
     }
 
+    componentDidMount() {
+        loadReCaptcha();
+    }
+    
     render() {
 
         return (
@@ -64,6 +71,8 @@ class App extends Component {
                 <Route exact path='/new-user' component={User} />
                 <Route exact path='/admin-new-user' component={AdminUser} />
                 <Route exact path='/users' component={Users} />
+                <Route exact path='/reset' component={ResetUser} />
+                <Route exact path='/remember-password' component={Password} />
                 
                 <Loader loading={this.state.loading} text={t('app.loading-text')} fullPage />
 

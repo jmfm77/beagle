@@ -4,37 +4,44 @@ import java.util.List;
 
 public class SessionInfoDto {
 
-    private boolean authenticated;
+	private boolean authenticated;
 
-    private String username;
+	private String username;
 
-    private List<String> roles;
+	private List<String> roles;
 
-    public boolean isAuthenticated() {
-        return authenticated;
-    }
+	private String sitekey;
 
-    public void setAuthenticated(
-            boolean authenticated) {
-        this.authenticated = authenticated;
-    }
+	public boolean isAuthenticated() {
+		return authenticated;
+	}
 
-    public String getUsername() {
-        return username;
-    }
+	public void setAuthenticated(boolean authenticated) {
+		this.authenticated = authenticated;
+	}
 
-    public void setUsername(
-            String username) {
-        this.username = username;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public List<String> getRoles() {
-        return roles;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public void setRoles(
-            List<String> roles) {
-        this.roles = roles;
-    }
+	public List<String> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<String> roles) {
+		this.roles = roles;
+	}
+
+	public String getSitekey() {
+		return sitekey;
+	}
+
+	public void setSitekey(String sitekey) {
+		this.sitekey = sitekey;
+	}
 
 }

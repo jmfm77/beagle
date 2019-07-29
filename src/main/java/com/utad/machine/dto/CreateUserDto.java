@@ -26,7 +26,7 @@ public class CreateUserDto {
 	private String password2;
 
 	@NotBlank
-	@Pattern(regexp = "ROLE_(ADMIN|USER)")
+	@Pattern(regexp = "ROLE_USER")
 	private String role;
 
 	public String getUsername() {

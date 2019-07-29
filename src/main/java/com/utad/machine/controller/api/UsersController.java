@@ -4,11 +4,11 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +21,8 @@ import com.utad.machine.dto.AdminModifyUserDto;
 import com.utad.machine.dto.AdminUserDto;
 import com.utad.machine.dto.CreateUserDto;
 import com.utad.machine.dto.ModifyUserDto;
+import com.utad.machine.dto.RememberUserDto;
+import com.utad.machine.dto.ResetUserDto;
 import com.utad.machine.dto.SuccessDto;
 import com.utad.machine.dto.UserDto;
 import com.utad.machine.service.UsersService;
@@ -35,9 +37,6 @@ public class UsersController {
 
 	@Autowired
 	private UsersService usersService;
-
-	@Autowired
-	private PasswordEncoder passwordEncoder;
 
 	@GetMapping("/get-all-users")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -107,6 +106,31 @@ public class UsersController {
 	public SuccessDto adminDelete(@RequestBody(required = true) @Valid AdminUserDto deleteAdminUserDto) {
 
 		usersService.deleteByUserId(deleteAdminUserDto.getUserId());
+
+		return new SuccessDto(true);
+
+	}
+
+	@PostMapping("/remember-password")
+	public SuccessDto rememberPassword(@RequestBody(required = true) @Valid RememberUserDto rememberUserDto) {
+
+		usersService.rememberPassword(rememberUserDto.getUsername());
+
+		return new SuccessDto(true);
+
+	}
+
+	@GetMapping("/reset")
+	public UserDto reset(@RequestParam(name = "token", required = true) @NotBlank String token) {
+
+		return usersService.getByToken(token);
+	}
+
+	@PostMapping("/reset")
+
+	public SuccessDto reset(@RequestBody(required = true) @Valid ResetUserDto resetUserDto) {
+
+		usersService.resetUser(resetUserDto);
 
 		return new SuccessDto(true);
 

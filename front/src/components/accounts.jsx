@@ -7,6 +7,7 @@ import { t } from 'services/translation.jsx';
 import { get, post } from 'services/rest.jsx';
 import { modalConfirmation } from 'services/modal.jsx';
 import { changeLocation } from 'services/location.jsx';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 class Accounts extends Component {
 
@@ -29,7 +30,8 @@ class Accounts extends Component {
             accountModalActive: false,
             accountName: '',
             accountDescription: '',
-            accountPassword: ''
+            accountPassword: '',
+            copied: false
         };
 
     }
@@ -38,7 +40,7 @@ class Accounts extends Component {
 
         this.loadAccounts();
     }
-
+    
     loadAccounts() {
 
         get({
@@ -100,9 +102,10 @@ class Accounts extends Component {
                                     <tr>
                                         <th style={{ width: '20%' }}>{t('accounts.table-name')}</th>
                                         <th style={{ width: '20%' }}>{t('accounts.table-description')}</th>
-                                        <th style={{ width: '20%' }}>{t('accounts.table-uri')}</th>
-                                        <th style={{ width: '20%' }}>{t('accounts.table-user')}</th>
-                                        <th style={{ width: '20%' }}>{t('accounts.table-password')}</th>
+                                        <th style={{ width: '30%' }}>{t('accounts.table-uri')}</th>
+                                        <th style={{ width: '10%' }}>{t('accounts.table-user')}</th>
+                                        <th style={{ width: '10%' }}>{t('accounts.table-password')}</th>
+                                        <th style={{ width: '10%' }}></th>
                                         <th style={{ width: '5rem' }}></th>
                                     </tr>
                                 </thead>
@@ -111,9 +114,25 @@ class Accounts extends Component {
                                         <tr key={'secret-' + account.nombre}>
                                             <td style={{ width: '20%' }}><Link to={'/account?securedAccountId='+account.securedAccountId}>{account.name}</Link></td>
                                             <td style={{ width: '20%' }}>{account.description}</td>
-                                            <td style={{ width: '20%' }}>{account.uri}</td>
-                                            <td style={{ width: '20%' }}>{account.username}</td>
-                                            <td style={{ width: '20%' }}>{account.password}</td>
+                                            <td style={{ width: '30%' }}>{account.uri}</td>
+                                            <td style={{ width: '10%' }}>{account.username}</td>
+                                            <td style={{ width: '10%' }}>
+                                           
+                                                <Input 
+                                                    type="password"
+                                                    disabled
+                                                    value={account.password}
+                                                /> 
+                                            </td>
+                                            
+                                            <td style={{ width: '10%' }}>
+                                                <CopyToClipboard text={account.password} 
+                                                    >
+                                                    <Button color="warning" size="sm">{t('accounts.txt-copy')}</Button>
+                                                </CopyToClipboard>
+                                               
+                                            </td>
+                                            
                                             <td style={{ width: '5rem' }} align="center">
                                                 <span onClick={() => { this.deleteAccount(account) }} style={{ cursor: 'pointer' }}>
                                                     <Octicon icon={Trashcan} />

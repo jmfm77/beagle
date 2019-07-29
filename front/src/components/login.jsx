@@ -88,8 +88,8 @@ class Login extends Component {
 
                 <Col className="main-col">
                     <Jumbotron className="text-center">
-                        <h1>{t('login.header_1')}</h1><hr />
-                        <h3>{t('login.header')}</h3><hr />
+                        <h1>{t('login.header')}</h1><hr />
+                        <h3>{t('login.header_1')}</h3><hr />
 
                         <Form onSubmit={(e) => { e.preventDefault(); this.login(); }}>
                             <FormGroup>
@@ -119,7 +119,7 @@ class Login extends Component {
                                 <Link to={'/new-user'}>{t('user.new-user')}</Link>
                             </FormGroup>
                                 <FormGroup>
-                                <Link to={'/rememner-password'}>{t('login.link-remember-password')}</Link>
+                                <Link to={'/remember-password'}>{t('login.link-remember-password')}</Link>
                             </FormGroup>
                             
                         </Form>
