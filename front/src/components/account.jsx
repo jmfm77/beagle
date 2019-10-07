@@ -21,6 +21,7 @@ class Account extends Component {
         this.return = this.return.bind(this);
         this.createAccount = this.createAccount.bind(this);
         this.modifyAccount = this.modifyAccount.bind(this);
+        this.volver = this.volver.bind(this);
 
         // State.
         this.state = {
@@ -40,6 +41,10 @@ class Account extends Component {
         this.loadAccount();
 
     }
+    
+    volver(){
+        changeLocation('/accounts');
+    }
 
     loadAccount() {
         const search = this.props.location.search;
@@ -57,8 +62,8 @@ class Account extends Component {
                 this.state.name = this.state.account.name;
                 this.state.description = this.state.account.description; 
                 this.state.uri = this.state.account.uri;
-                this.state.username = this.state.account.username; 
-                this.state.password =this.state.account.password; 
+                /*this.state.username = this.state.account.username; 
+                this.state.password =this.state.account.password;*/ 
             }
         });
         
@@ -74,10 +79,10 @@ class Account extends Component {
             url: '/api/secured-accounts/create',
             body: {
                 name: this.state.name,
-                description: this.state.description,
+                description: this.state.description/*,
                 uri: this.state.uri,
                 username: this.state.username,
-                password: this.state.password
+                password: this.state.password*/
             },
             callback: (response) => {
                 if (response){    
@@ -95,10 +100,10 @@ class Account extends Component {
             body: {
                 securedAccountId: this.state.account.securedAccountId,
                 name: this.state.account.name,
-                description: this.state.description,
+                description: this.state.description/*,
                 uri: this.state.uri,
                 username: this.state.username,
-                password: this.state.password
+                password: this.state.password*/
             },
             callback: (response) => {
                     changeLocation('/accounts');
@@ -135,6 +140,7 @@ class Account extends Component {
                                         onChange={(e) => { this.setState({ description: e.target.value }) }}
                                     />
                                 </FormGroup>
+                                {/*
                                 <FormGroup>
                                     <Input
                                         type="text"
@@ -157,7 +163,7 @@ class Account extends Component {
                                         required
                                         onChange={(e) => { this.setState({ password: e.target.value }) }}
                                     />
-                                </FormGroup>
+                                </FormGroup>*/}
                                 <FormGroup className="group-spaced">
                                     <Button type="submit" color="primary">{t('account.btn-create-account')}</Button>
                                     <Button color="secondary" onClick={this.return}>{t('account.btn-volver-account')}</Button>
@@ -178,7 +184,7 @@ class Account extends Component {
                                         onChange={(e) => { this.setState({ description: e.target.value }) }}
                                     />
                                 </FormGroup>
-                                <FormGroup row>
+                                {/*<FormGroup row>
                                     <Label>{t('account.txt-uri')}</Label>
                                     <Input
                                         type="text"
@@ -206,9 +212,10 @@ class Account extends Component {
                                         required
                                         onChange={(e) => { this.setState({ password: e.target.value }) }}
                                     />
-                                </FormGroup>
+                                </FormGroup>*/}
+                                <iframe src={t('account.start-url') + this.state.account.uri + t('account.end-url')} height="600" width="800"></iframe>
                                 <FormGroup className="group-spaced">
-                                    <Button type="submit" color="primary">{t('account.btn-modify-account')}</Button>
+                                {/*<Button type="submit" color="primary">{t('account.btn-modify-account')}</Button>*/}
                                     <Button color="secondary" onClick={this.volver}>{t('account.btn-volver-account')}</Button>
                                 </FormGroup>
                             </Form>

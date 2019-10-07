@@ -28,7 +28,7 @@ class Password extends Component {
 
         // Refs.
         this.txtUsername = React.createRef();
-        this.captchaMachine = React.createRef();
+        this.captchaBeagle = React.createRef();
         
         // State.
         this.state = {
@@ -43,14 +43,14 @@ class Password extends Component {
     }
 
     componentDidMount() {
-                if (this.captchaMachine) {
-                    this.captchaMachine.reset
+                if (this.captchaBeagle) {
+                    this.captchaBeagle.reset
                 }
     }
 
     onLoadRecaptcha() {
-          if (this.captchaMachine) {
-              this.captchaMachine.reset
+          if (this.captchaBeagle) {
+              this.captchaBeagle.reset
 
           }
       }
@@ -137,7 +137,7 @@ class Password extends Component {
                                 <Col/>
                                 <Col>
                                     <ReCaptcha
-                                    ref={(el) => {this.captchaMachine = el;}}
+                                    ref={(el) => {this.captchaBeagle = el;}}
                                     size="normal"
                                     render="explicit"
                                     sitekey={this.state.sitekey}

@@ -1,9 +1,9 @@
 version: "3.7"
 
 services:
-  machine:
-    container_name: machine
-    image: jmfm77/machine
+  beagle:
+    container_name: beagle
+    image: jmfm77/beagle
     command: --spring.config.location=file:/run/secrets/config.properties,file:/run/secrets/secrets.properties
     ports:
       - "9000:9000"

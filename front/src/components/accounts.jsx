@@ -100,21 +100,21 @@ class Accounts extends Component {
                             <Table striped hover>
                                 <thead>
                                     <tr>
-                                        <th style={{ width: '20%' }}>{t('accounts.table-name')}</th>
-                                        <th style={{ width: '20%' }}>{t('accounts.table-description')}</th>
-                                        <th style={{ width: '30%' }}>{t('accounts.table-uri')}</th>
+                                        <th style={{ width: '40%' }}>{t('accounts.table-name')}</th>
+                                        <th style={{ width: '60%' }}>{t('accounts.table-description')}</th>
+                                        {/*<th style={{ width: '30%' }}>{t('accounts.table-uri')}</th>
                                         <th style={{ width: '10%' }}>{t('accounts.table-user')}</th>
                                         <th style={{ width: '10%' }}>{t('accounts.table-password')}</th>
-                                        <th style={{ width: '10%' }}></th>
+                                        <th style={{ width: '10%' }}></th>*/}
                                         <th style={{ width: '5rem' }}></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {this.state.accounts.map((account, i) =>
                                         <tr key={'secret-' + account.nombre}>
-                                            <td style={{ width: '20%' }}><Link to={'/account?securedAccountId='+account.securedAccountId}>{account.name}</Link></td>
-                                            <td style={{ width: '20%' }}>{account.description}</td>
-                                            <td style={{ width: '30%' }}>{account.uri}</td>
+                                            <td style={{ width: '40%' }}><Link to={'/account?securedAccountId='+account.securedAccountId}>{account.name}</Link></td>
+                                            <td style={{ width: '60%' }}>{account.description}</td>
+                                            {/*<td style={{ width: '30%' }}>{account.uri}</td>
                                             <td style={{ width: '10%' }}>{account.username}</td>
                                             <td style={{ width: '10%' }}>
                                            
@@ -126,13 +126,13 @@ class Accounts extends Component {
                                             </td>
                                             
                                             <td style={{ width: '10%' }}>
-                                                <CopyToClipboard text={account.password} 
+                                                <CopyToClipboard text={account.uri} 
                                                     >
-                                                    <Button color="warning" size="sm">{t('accounts.txt-copy')}</Button>
+                                                    <Button color="warning" size="sm">{t('accounts.table-uri')}</Button>
                                                 </CopyToClipboard>
                                                
                                             </td>
-                                            
+                                            */}
                                             <td style={{ width: '5rem' }} align="center">
                                                 <span onClick={() => { this.deleteAccount(account) }} style={{ cursor: 'pointer' }}>
                                                     <Octicon icon={Trashcan} />

@@ -25,7 +25,7 @@ class User extends Component {
         this.verifyCallback = this.verifyCallback.bind(this);
         
         // Refs.
-        this.captchaMachine = React.createRef();
+        this.captchaBeagle = React.createRef();
         
         // State.
         this.state = {
@@ -41,13 +41,13 @@ class User extends Component {
     }
     
     componentDidMount() {
-        if (this.captchaMachine) {
-            this.captchaMachine.reset
+        if (this.captchaBeagle) {
+            this.captchaBeagle.reset
         }
       }
       onLoadRecaptcha() {
-          if (this.captchaMachine) {
-              this.captchaMachine.reset
+          if (this.captchaBeagle) {
+              this.captchaBeagle.reset
           }
       }
       verifyCallback(recaptchaToken) {
@@ -139,7 +139,7 @@ class User extends Component {
                                 <Col/>
                                 <Col>
                                     <ReCaptcha
-                                    ref={(el) => {this.captchaMachine = el;}}
+                                    ref={(el) => {this.captchaBeagle = el;}}
                                     size="normal"
                                     render="explicit"
                                     sitekey={this.state.sitekey}
